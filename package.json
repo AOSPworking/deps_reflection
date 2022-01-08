@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "dependency reflection, from .json outputed by ninja-hacked.ToolOrigin, figuring out all output modules related on given file / node / target",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "node index.js"
+    "test": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/AOSPworking/deps_reflection/issues"
   },
-  "homepage": "https://github.com/AOSPworking/deps_reflection#readme"
+  "homepage": "https://github.com/AOSPworking/deps_reflection#readme",
+  "devDependencies": {
+    "fs": "^0.0.1-security"
+  }
 }

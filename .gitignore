@@ -1,0 +1,5 @@
+# for node.js project
+node_modules/
+
+# for input about pkg_repo_tool
+repo_pkg_module.json
