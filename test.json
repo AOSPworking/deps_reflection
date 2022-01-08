@@ -1,0 +1,23 @@
+{
+  "nodes": [
+    {"name": "N", "distance": 1},
+    {"name": "J", "distance": 2},
+    {"name": "K", "distance": 2},
+    {"name": "D", "distance": 3},
+    {"name": "E", "distance": 3},
+    {"name": "F", "distance": 3},
+    {"name": "A", "distance": 4},
+    {"name": "B", "distance": 4},
+    {"name": "C", "distance": 4}
+  ],
+  "edges": [
+    {"target": ["J","K"], "source": ["N"], "impact_source": []},
+    {"target": ["D"], "source": ["J"], "impact_source": ["I"]},
+    {"target": ["E","F"], "source": ["K"], "impact_source": ["L"]},
+    {"target": ["A"], "source": ["D","E"], "impact_source": []},
+    {"target": ["B"], "source": ["F"], "impact_source": ["G","H"]},
+    {"target": ["C"], "source": ["F"], "impact_source": ["G","H"]}
+  ],
+  "node_num": 9,
+  "edge_num": 6
+}
