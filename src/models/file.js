@@ -33,8 +33,10 @@ export class OutFile extends File {
     super(file_name, FILE_TYPE.OUT)
     let parts = file_name.split("/")
 
-    // 只记录三个目录
-    if (parts.length <= 3) {
+    // 只记录三个目录，但是也有处在两级目录下的
+    // 比如 out/soong 下的 txt，out/soong/boot.arm.oatdump.txt
+    // 所以这里暂时改成 < 3
+    if (parts.length < 3) {
       throw Error("file name do not has 2 slash: " + file_name)
     }
     this.out_dir = [parts[0], parts[1], parts[2]]
