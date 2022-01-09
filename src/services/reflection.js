@@ -1,10 +1,10 @@
 import * as fs from 'fs'
-import { Edge } from '../models/edge.js';
+import { Edge, Node } from '../models/graph.js';
 import { File, OutFile, SourceFile } from '../models/file.js';
 import { Repository } from '../models/repository.js'
 import { Module } from '../models/module.js'
 import { Package } from '../models/package.js'
-import { UnmarshalManifest } from './unmarshaller.js';
+import { UnmarshalRepositories } from './unmarshaller.js';
 
 class Reflector {
 
@@ -92,10 +92,22 @@ class Reflector {
   }
 
   /**
+   * Get a node with file_path and distance
+   * @param {string} file_path
+   * @param {number} distance
+   * @returns {Node} node
+   */
+  NodeReflect(file_path, distance) {
+    const file = this.FileReflect(file_path)
+    return new Node(file, distance)
+  }
+
+  /**
    * Gett a edge with target, source and impact_source
    * @param {Array<string>} target
    * @param {Array<string>} source
    * @param {Array<string>} impact_source
+   * @returns {Edge} edge
    */
   EdgeReflect(target, source, impact_source) {
     let target_files = []
@@ -110,7 +122,7 @@ class Reflector {
 
 let json_txt = fs.readFileSync("repo_pkg_module.json")
 let repo_pkg_module = JSON.parse(json_txt)
-let reflector = new Reflector(UnmarshalManifest(repo_pkg_module))
+let reflector = new Reflector(UnmarshalRepositories(repo_pkg_module))
 
 export {
   reflector
