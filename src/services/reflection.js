@@ -1,9 +1,18 @@
-import { File } from '../models/file.js';
+import * as fs from 'fs'
+import { Edge } from '../models/edge.js';
+import { File, OutFile, SourceFile } from '../models/file.js';
 import { Repository } from '../models/repository.js'
 import { Module } from '../models/module.js'
 import { Package } from '../models/package.js'
+import { UnmarshalManifest } from './unmarshaller.js';
 
-export class Reflector {
+class Reflector {
+
+  OUT_HEADER = "out/"
+  OUT_HOST_HEADER = "out/host/"
+  OUT_SOONG_HEADER = "out/soong/"
+  INTERMEDIATE_FILE_HEADER = "out/soong/.intermediates/"
+
   /**
    * Reflector is a tool to get repo/pkg's name
    * with a given file path
@@ -19,9 +28,12 @@ export class Reflector {
    * @returns {File} file and its repo&pkg info
    */
   FileReflect(file_path) {
+    if (file_path.startsWith(this.OUT_HEADER)) {
+      return new OutFile(file_path)
+    }
     const repo = this.FileReflectRepository(file_path)
     const pkg = this.FileReflectPackage(repo, file_path)
-    return new File(repo.name, pkg.name, file_path)
+    return new SourceFile(file_path, repo.name, pkg.name)
   }
 
   /**
@@ -36,7 +48,9 @@ export class Reflector {
         return repo
       }
     }
-    throw Error("cannot get repo's name about " + file_path)
+    console.error("FileReflectRepository: "
+                + "cannot get repo's name about " + file_path)
+    return new Repository("", [])
   }
 
   /**
@@ -48,8 +62,10 @@ export class Reflector {
   FileReflectPackage(repository, file_path) {
     const pkgs = repository.packages
     if (pkgs.length == 0) {
-      throw Error(repository.name + "'s pkgs is empty, \
-                  but file path is: " + file_path)
+      console.error("FileReflectPackage:" + repository.name
+                  + "'s pkgs is empty,"
+                  + " and file path is: " + file_path)
+      return new Package("", [])
     }
 
     let maxMatchPkg = pkgs[0]
@@ -74,6 +90,28 @@ export class Reflector {
   FileReflectModule(pkg, file_path) {
     return new Module("", "")
   }
+
+  /**
+   * Gett a edge with target, source and impact_source
+   * @param {Array<string>} target
+   * @param {Array<string>} source
+   * @param {Array<string>} impact_source
+   */
+  EdgeReflect(target, source, impact_source) {
+    let target_files = []
+    let source_files = []
+    let impact_source_files = []
+    target.forEach(t => { target_files.push(this.FileReflect(t)) })
+    source.forEach(s => { source_files.push(this.FileReflect(s)) })
+    impact_source.forEach(s => { impact_source_files.push(this.FileReflect(s)) })
+    return new Edge(target_files, source_files, impact_source_files)
+  }
 }
 
+let json_txt = fs.readFileSync("repo_pkg_module.json")
+let repo_pkg_module = JSON.parse(json_txt)
+let reflector = new Reflector(UnmarshalManifest(repo_pkg_module))
 
+export {
+  reflector
+}
