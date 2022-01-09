@@ -1,4 +1,4 @@
-import { Module, UnmarshalModules } from "./module.js"
+import { Module } from "./module.js"
 
 export class Package {
   /**
@@ -10,25 +10,4 @@ export class Package {
     this.name = name
     this.modules = modules
   }
-}
-
-function UnmarshalPackage(input_package) {
-  return new Package(input_package.name, UnmarshalModules(input_package.modules))
-}
-
-/**
- * Unmarshal Packages
- * @param {Object} input_packages
- * @returns {Array<Package>} pkgs
- */
-export function UnmarshalPackages(input_packages) {
-  if (input_packages == null) {
-    return []
-  }
-
-  let packages = []
-  input_packages.forEach(input_package => {
-    packages.push(UnmarshalPackage(input_package))
-  })
-  return packages
 }
