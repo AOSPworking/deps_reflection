@@ -1,5 +1,5 @@
-import { FILE_TYPE, SourceFile } from "../models/file.js"
-import { Edge, Node } from "../models/graph.js"
+import { FILE_TYPE } from "../models/File.js"
+import { Edge, Node } from "../models/Graph.js"
 
 export class ImpactAnalyzer {
   /**

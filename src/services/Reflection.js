@@ -1,8 +1,8 @@
 import * as fs from 'fs'
-import { File, OutFile, SourceFile } from '../models/file.js'
-import { Repository } from '../models/repository.js'
-import { Module } from '../models/module.js'
-import { Package } from '../models/package.js'
+import { File, OutFile, SourceFile } from '../models/File.js'
+import { Repository } from '../models/Repository.js'
+import { Module } from '../models/Module.js'
+import { Package } from '../models/Package.js'
 import { RepoPkgModJSONUnmarshaller } from './RepoPkgModJSONUnmarshaller.js';
 
 export class Reflector {

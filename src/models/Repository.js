@@ -1,4 +1,4 @@
-import { Package } from "./package.js";
+import { Package } from "./Package.js";
 
 export class Repository {
   /**

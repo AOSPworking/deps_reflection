@@ -1,6 +1,6 @@
-import { Module } from '../models/module.js'
-import { Package } from '../models/package.js'
-import { Repository } from '../models/repository.js'
+import { Module } from '../models/Module.js'
+import { Package } from '../models/Package.js'
+import { Repository } from '../models/Repository.js'
 
 export class RepoPkgModJSONUnmarshaller {
   /**

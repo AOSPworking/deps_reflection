@@ -1,4 +1,4 @@
-import { Module } from "./module.js"
+import { Module } from "./Module.js"
 
 export class Package {
   /**

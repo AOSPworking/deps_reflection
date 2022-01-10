@@ -1,5 +1,5 @@
-import { Node, Edge } from '../models/graph.js'
-import { reflector } from './reflection.js'
+import { Node, Edge } from '../models/Graph.js'
+import { reflector } from './Reflection.js'
 
 export class ImpactJSONUnmarshaller {
 
