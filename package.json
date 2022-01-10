@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/AOSPworking/deps_reflection#readme",
   "devDependencies": {
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "graphviz": "^0.0.9",
+    "yargs": "^17.3.1"
   }
 }
