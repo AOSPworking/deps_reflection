@@ -1,12 +1,11 @@
 import * as fs from 'fs'
-import { Edge, Node } from '../models/graph.js';
-import { File, OutFile, SourceFile } from '../models/file.js';
+import { File, OutFile, SourceFile } from '../models/file.js'
 import { Repository } from '../models/repository.js'
 import { Module } from '../models/module.js'
 import { Package } from '../models/package.js'
-import { UnmarshalRepositories } from './unmarshaller.js';
+import { RepoPkgModJSONUnmarshaller } from './RepoPkgModJSONUnmarshaller.js';
 
-class Reflector {
+export class Reflector {
 
   OUT_HEADER = "out/"
   OUT_HOST_HEADER = "out/host/"
@@ -43,7 +42,7 @@ class Reflector {
    */
   FileReflectRepository(file_path) {
     for (let i = 0; i < this.repos.length; i++) {
-      const repo = this.repos[i];
+      const repo = this.repos[i]
       if (file_path.startsWith(repo.name)) {
         return repo
       }
@@ -71,7 +70,7 @@ class Reflector {
     let maxMatchPkg = pkgs[0]
     let maxMatchNum = 0
     for (let i = 0; i < pkgs.length; i++) {
-      const pkg = pkgs[i];
+      const pkg = pkgs[i]
       if (pkg.name.length > maxMatchNum && file_path.startsWith(pkg.name)) {
         maxMatchPkg = pkg
         maxMatchNum = pkg.name.length
@@ -90,39 +89,15 @@ class Reflector {
   FileReflectModule(pkg, file_path) {
     return new Module("", "")
   }
-
-  /**
-   * Get a node with file_path and distance
-   * @param {string} file_path
-   * @param {number} distance
-   * @returns {Node} node
-   */
-  NodeReflect(file_path, distance) {
-    const file = this.FileReflect(file_path)
-    return new Node(file, distance)
-  }
-
-  /**
-   * Gett a edge with target, source and impact_source
-   * @param {Array<string>} target
-   * @param {Array<string>} source
-   * @param {Array<string>} impact_source
-   * @returns {Edge} edge
-   */
-  EdgeReflect(target, source, impact_source) {
-    let target_files = []
-    let source_files = []
-    let impact_source_files = []
-    target.forEach(t => { target_files.push(this.FileReflect(t)) })
-    source.forEach(s => { source_files.push(this.FileReflect(s)) })
-    impact_source.forEach(s => { impact_source_files.push(this.FileReflect(s)) })
-    return new Edge(target_files, source_files, impact_source_files)
-  }
 }
 
 let json_txt = fs.readFileSync("repo_pkg_module.json")
 let repo_pkg_module = JSON.parse(json_txt)
-let reflector = new Reflector(UnmarshalRepositories(repo_pkg_module))
+
+let unmarshaller = new RepoPkgModJSONUnmarshaller()
+let reflector = new Reflector(
+  unmarshaller.UnmarshalRepositories(repo_pkg_module)
+)
 
 export {
   reflector
