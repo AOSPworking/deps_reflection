@@ -15,9 +15,9 @@ export class Node {
 export class Edge {
   /**
    * Edge is an abstraction in .json
-   * @param {Array<File>} target
-   * @param {Array<File>} source
-   * @param {Array<File>} impact_source
+   * @param {Array<Node>} target
+   * @param {Array<Node>} source
+   * @param {Array<Node>} impact_source
    */
   constructor(target, source, impact_source) {
     this.target = target
