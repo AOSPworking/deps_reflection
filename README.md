@@ -2,12 +2,29 @@
 
 ## 1. Requirement
 
-* `node`: v17.0.1
-* `npm`: 8.1.0
+* `node`: v16.13.1+
+* `npm`: 8.1.0+
 
-## 2. Usage
+## 2. Usgae
 
-需要 [ninja-hacked](https://github.com/AOSPworking/ninja-hacked/tree/8e91aa73902c091b8a4ebdd1e625674ba0be0f8c) 中新增的 `ToolOrigin` 的输出 `.json`。此外还需要给定 [pkg_repo_tool](https://github.com/AOSPworking/pkg_repo_tool) 输出的 `repo_pkg_module.json`。
+```shell
+> nvm use 16
+>
+> # Installation
+> npm install
+```
+
+```shell
+> # 会输出 out.nodes 但这是个 json
+> node src/index.js --tool=nodes
+>
+> # 会输出 out.svg
+> node src/index.js --tool=graphviz
+```
+
+## 3. About
+
+需要 [ninja-hacked](https://github.com/AOSPworking/ninja-hacked/tree/8e91aa73902c091b8a4ebdd1e625674ba0be0f8c) 中新增的 `ToolOrigin` 的输出 `ninja_origin_out.json`。此外还需要给定 [pkg_repo_tool](https://github.com/AOSPworking/pkg_repo_tool) 输出的 `repo_pkg_module.json`。
 
 前者需要保证如下的输出结构：
 

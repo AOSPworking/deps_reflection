@@ -3,3 +3,10 @@ node_modules/
 
 # for input about pkg_repo_tool
 repo_pkg_module.json
+
+# for input about ninja_hacked
+ninja_origin_out.json
+
+# out about this project, deps_reflection
+out.nodes
+out.svg
